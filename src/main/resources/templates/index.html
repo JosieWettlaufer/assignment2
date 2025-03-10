@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <!-- Bootstrap CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<h2>Employee Database</h2>
+
+    <form th:action="@{/processform}" method="POST" th:object=$"employee">
+
+        <div class="form-group">
+            <label for="employeeName" class="form-label">Employee name: </label>
+            <input type="text" id="employeeName" name="employeeName" required>
+        </div>
+
+
+        <div class="mb-3 d-flex align-items-center">
+            <label for="designation" class="form-label me-3">Designation: </label>
+                <select name="designation" id="designation" th:field="*{designation}" class="form-select w-auto" required>
+                    <option value="">-- Select Designation --</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Team Lead">Team Lead</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Analyst">Analyst</option>
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label for="salary" class="form-label">Salary: </label>
+            <input type="number" id="salary" name="salary" value="bind-value" readonly>
+        </div>
+
+        <div class="form-check">
+            <input type="checkbox" id="employmentType" name="employmentType" value="true" class="form-check-input">
+            <label for="employmentType" class="form-check-label">Full-time: </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">Departments:</label><br>
+            <input type="checkbox" th:field="*{department}" value="HR"          class="form-check-input">HR<br>
+            <input type="checkbox" th:field="*{department}" value="Finance"     class="form-check-input">Finance<br>
+            <input type="checkbox" th:field="*{department}" value="IT"          class="form-check-input">IT<br>
+            <input type="checkbox" th:field="*{department}" value="Marketing"   class="form-check-input">Marketing<br>
+            <input type="checkbox" th:field="*{department}" value="Sales"       class="form-check-input">Sales<br>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Employee</button>
+    </form>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
