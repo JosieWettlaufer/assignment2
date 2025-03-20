@@ -5,27 +5,20 @@
     <title>Registration Success</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
     <style>
-        .success-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
         .success-title {
             margin-bottom: 30px;
             text-align: center;
             color: #28a745;
         }
-        .employee-details {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
         .detail-row {
             margin-bottom: 10px;
+            text-align: center;
         }
         .detail-label {
             font-weight: bold;
+        }
+        ul {
+            list-style-type: none;
         }
     </style>
 </head>
@@ -34,33 +27,38 @@
     <div class="success-container">
         <h2 class="success-title">Employee Registration Successful!</h2>
 
+        <!--Employee Name-->
         <div class="employee-details">
             <div class="detail-row">
                 <span class="detail-label">Name:</span>
                 <span th:text="${employee.name}"></span>
             </div>
 
+            <!--Employee Designation-->
             <div class="detail-row">
                 <span class="detail-label">Designation:</span>
                 <span th:text="${employee.designation}"></span>
             </div>
 
+            <!--Employee Salary-->
             <div class="detail-row">
                 <span class="detail-label">Salary:</span>
                 <span th:text="${'$' + #numbers.formatDecimal(employee.salary.amount, 0, 'COMMA', 2, 'POINT')}"></span>
             </div>
 
+            <!--Employment Type-->
             <div class="detail-row">
                 <span class="detail-label">Employment Type:</span>
                 <span th:text="${employee.fullTime ? 'Full-Time' : 'Part-Time'}"></span>
             </div>
 
+            <!--Employee Departments-->
             <div class="detail-row">
                 <span class="detail-label">Departments:</span>
                 <span th:if="${not #lists.isEmpty(employee.departments)}">
                         <ul>
                             <li th:each="dept : ${employee.departments}"
-                                th:text="${deptMap != null && deptMap.containsKey(dept) ? deptMap.get(dept) : dept}"></li>
+                                th:text="${dept}"></li>
                         </ul>
                     </span>
                 <span th:if="${#lists.isEmpty(employee.departments)}">None selected</span>

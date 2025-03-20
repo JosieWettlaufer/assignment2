@@ -8,22 +8,6 @@
     <style>
         .error-message {
             color: red;
-            font-size: 0.9em;
-        }
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .form-title {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .department-checkbox {
-            margin-right: 10px;
         }
     </style>
 </head>
@@ -85,31 +69,32 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    // Function to update the salary field based on the selected designation
     function updateSalary() {
+        // Get the value of the designation dropdown
         var designation = $('#designation').val();
+
+        // Check if a designation is selected
         if (designation) {
+            // Make an AJAX request to fetch the salary based on the designation (so no page reload req.)
             $.ajax({
                 url: '/employees/getSalary',
                 type: 'GET',
-                data: { designation: designation },
+                data: { designation: designation }, // Send the selected designation as a query parameter
                 success: function(response) {
-                    $('#salary').val('$' + parseFloat(response).toLocaleString('en-US', {maximumFractionDigits: 2}));
+                    // On success, parse the response to a float and format it as currency (e.g., "$75,000.00")
+                    $('#salary').val('$' + parseFloat(response).toLocaleString('en-US', { maximumFractionDigits: 2 }));
                 },
                 error: function() {
+                    // If an error occurs (e.g., server issue), display an error message in the salary field
                     $('#salary').val('Error calculating salary');
                 }
             });
         } else {
+            // If no designation is selected, clear the salary field
             $('#salary').val('');
         }
     }
-
-    $(document).ready(function() {
-        // Update salary on page load if designation is selected
-        if ($('#designation').val()) {
-            updateSalary();
-        }
-    });
 </script>
 </body>
 </html>
