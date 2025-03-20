@@ -6,10 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/employee")
 public class employeeController {
 
-    @GetMapping("/Employee")
+    Employee employee;
+
+    //get employee by id
+    @GetMapping("/{employeeId}")
     public String index() {
         return "index";
     }
