@@ -12,12 +12,12 @@ public class DepartmentService {
     //Returns List of Department Objects
     public List<Department> getAllDepartments() {
         return List.of(
-                new Department("dev", "Development"),
-                new Department("qa", "Quality Assurance"),
-                new Department("ops", "Operations"),
-                new Department("hr", "Human Resources"),
-                new Department("fin", "Finance"),
-                new Department("mkt", "Marketing")
+                new Department("Development"),
+                new Department("Quality Assurance"),
+                new Department("Operations"),
+                new Department("Human Resources"),
+                new Department( "Finance"),
+                new Department("Marketing")
         );
     }
 }

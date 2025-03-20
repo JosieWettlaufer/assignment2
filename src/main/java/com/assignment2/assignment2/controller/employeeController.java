@@ -11,6 +11,10 @@ import com.assignment2.assignment2.model.Employee;
 import com.assignment2.assignment2.service.DepartmentService;
 import com.assignment2.assignment2.service.SalaryService;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/employees")
 public class employeeController {
@@ -20,8 +24,7 @@ public class employeeController {
 
     //constructor injection
     public employeeController(SalaryService salaryService,
-                          DepartmentService departmentService,
-                          Employee employee) {
+                          DepartmentService departmentService) {
         this.salaryService = salaryService;
         this.departmentService = departmentService;
     }
@@ -50,7 +53,8 @@ public class employeeController {
             //If validation errors occur, add necessary attrs. back to model
             model.addAttribute("departments", departmentService.getAllDepartments());
             model.addAttribute("designations", Employee.getValidDesignations());
-            return "employeeForm";
+
+            return "confirmation";
         }
 
         //calculate and set salary bsaed on designation
@@ -59,6 +63,8 @@ public class employeeController {
 
         //add employee to model for confirmation page
         model.addAttribute("employee", employee);
+
+
 
         return "confirmation";
     }

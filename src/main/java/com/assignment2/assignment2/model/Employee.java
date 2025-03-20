@@ -2,6 +2,8 @@ package com.assignment2.assignment2.model;
 
 import lombok.*;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.context.annotation.Bean;
+
 import java.util.List;
 
 @Setter
@@ -31,7 +33,7 @@ public class Employee {
     private boolean fullTime; //boolean chkbox, part-time/full-time
 
     // multiple selection via chkboxes
-    private List<String> departments; //make foreign key for emps with multiple depts.
+    private List<String> departments;
 
     //Checks if chosen designation is valid
     public void setDesignation(String designation) {
