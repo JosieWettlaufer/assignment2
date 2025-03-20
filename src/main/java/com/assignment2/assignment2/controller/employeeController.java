@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import com.assignment2.assignment2.model.Employee;
 import com.assignment2.assignment2.service.DepartmentService;
 import com.assignment2.assignment2.service.SalaryService;
@@ -72,6 +71,7 @@ public class employeeController {
 
         // Calculate salary based on the designation
         Salary salary = salaryService.calculateSalary(designation);
+        //valueOf prevents null pointer exceptions
         return String.valueOf(salary.getAmount()); // Return salary as a plain text response
     }
 }
