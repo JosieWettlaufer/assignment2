@@ -2,7 +2,6 @@ package com.assignment2.assignment2.controller;
 
 import com.assignment2.assignment2.model.Salary;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,68 +11,67 @@ import com.assignment2.assignment2.model.Employee;
 import com.assignment2.assignment2.service.DepartmentService;
 import com.assignment2.assignment2.service.SalaryService;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 @Controller
 @RequestMapping("/employees")
 public class employeeController {
 
+    //Store Service instances
     private final SalaryService salaryService;
     private final DepartmentService departmentService;
 
-    //constructor injection
-    public employeeController(SalaryService salaryService,
-                          DepartmentService departmentService) {
+    // Service constructor dependency injection
+    public employeeController(SalaryService salaryService, DepartmentService departmentService) {
         this.salaryService = salaryService;
         this.departmentService = departmentService;
     }
 
-    //Display employee registration form
+
+    //Displays the employee registration form.
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
 
-        //Add empty employee object to the model
+        // Add an empty employee object to bind form data
         model.addAttribute("employee", new Employee());
 
-        //Add departments list to the model
+        // Fetch all departments and add them to the model
         model.addAttribute("departments", departmentService.getAllDepartments());
 
-        //Add designations to the model
+        // Fetch valid designations and add them to the model
         model.addAttribute("designations", Employee.getValidDesignations());
 
-        return "employeeForm";
+        return "employeeForm"; // Return the registration form view
     }
 
-    //Process Form submission
+
+    //Handles form submission for employee registration.
     @PostMapping("/register")
     public String processRegistration(@Valid @ModelAttribute("employee") Employee employee,
                                       BindingResult result, Model model) {
+
+        // If validation errors exist, return to form with necessary attributes
         if (result.hasErrors()) {
-            //If validation errors occur, add necessary attrs. back to model
             model.addAttribute("departments", departmentService.getAllDepartments());
             model.addAttribute("designations", Employee.getValidDesignations());
-
-            return "employeeForm";
+            return "employeeForm"; // Return form with errors
         }
 
-        //calculate and set salary based on designation
+        // Calculate and set salary based on employee's designation
         Salary salary = salaryService.calculateSalary(employee.getDesignation());
         employee.setSalary(salary);
 
-        //add employee to model for confirmation page
+        // Add employee object to the model for display on confirmation page
         model.addAttribute("employee", employee);
 
-        return "confirmation";
+        return "confirmation"; // Return confirmation page
     }
 
-    //Get salary value based on designation
+    //API endpoint to fetch salary based on designation (AJAX request).
     @GetMapping("/getSalary")
-    @ResponseBody
+    @ResponseBody // Returns raw data instead of a view
     public String getSalaryForDesignation(@RequestParam("designation") String designation) {
-        //gets salary based on designation from URL
+
+        // Calculate salary based on the designation
         Salary salary = salaryService.calculateSalary(designation);
-        return String.valueOf(salary.getAmount()); //return in response body (plaintext)
+        return String.valueOf(salary.getAmount()); // Return salary as a plain text response
     }
 }

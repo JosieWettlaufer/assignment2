@@ -23,21 +23,20 @@ public class Employee {
         );
     }
 
-
     @Valid
     @NotEmpty(message= "Please enter a name")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
-    private String name;
+    private String name;        //text, required
 
     @Valid
     @NotEmpty(message = "Please select a designation")
-    private String designation; //dropdown menu
+    private String designation; //dropdown menu, required
 
-    private Salary salary = new Salary(999.0); //default value
+    private Salary salary;
 
-    private boolean fullTime; //boolean chkbox, part-time/full-time
+    private boolean fullTime;   //checkbox -> full-time
 
-    // multiple selection via chkboxes
+    // stores collection of multiple selection checkboxes
     private List<String> departments;
 
 }

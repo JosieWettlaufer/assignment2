@@ -1,8 +1,6 @@
 package com.assignment2.assignment2.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import com.assignment2.assignment2.model.Department;
 
