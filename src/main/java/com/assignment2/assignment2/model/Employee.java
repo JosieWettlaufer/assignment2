@@ -11,10 +11,13 @@ import java.util.List;
 @ToString
 public class Employee {
 
-    //List of designations
-    private static final List<String> validDesignations = List.of(
+    //List of valid designations
+    public static List<String> getValidDesignations() {
+        return List.of(
             "Software Engineer", "Senior Engineer",
-            "Tech Lead", "Project Manager", "Director");
+            "Tech Lead", "Project Manager", "Director"
+        );
+    }
 
     @NotEmpty(message= "Please enter a name")
     private String name;
@@ -30,8 +33,9 @@ public class Employee {
     // multiple selection via chkboxes
     private List<String> departments; //make foreign key for emps with multiple depts.
 
+    //Checks if chosen designation is valid
     public void setDesignation(String designation) {
-        if (validDesignations.contains(designation)) {
+        if (getValidDesignations().contains(designation)) {
             this.designation = designation;
         } else {
             throw new IllegalArgumentException("Invalid designation: " + designation); //stop method, returns error message
