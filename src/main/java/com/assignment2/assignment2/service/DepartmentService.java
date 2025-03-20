@@ -16,7 +16,7 @@ public class DepartmentService {
                 new Department("Quality Assurance"),
                 new Department("Operations"),
                 new Department("Human Resources"),
-                new Department( "Finance"),
+                new Department("Finance"),
                 new Department("Marketing")
         );
     }

@@ -1,10 +1,11 @@
 package com.assignment2.assignment2.model;
 
+import jakarta.validation.Valid;
 import lombok.*;
 import jakarta.validation.constraints.NotEmpty;
-import org.springframework.context.annotation.Bean;
-
 import java.util.List;
+
+
 
 @Setter
 @Getter
@@ -21,26 +22,21 @@ public class Employee {
         );
     }
 
+
+    @Valid
     @NotEmpty(message= "Please enter a name")
     private String name;
 
     @Setter(AccessLevel.NONE) //override lombok setter
+    @Valid
     @NotEmpty(message = "Please select a designation")
     private String designation; //dropdown menu
 
-    private double salary; //selected automatically based on designation
+    private Salary salary = new Salary(999.0); //default value
 
     private boolean fullTime; //boolean chkbox, part-time/full-time
 
     // multiple selection via chkboxes
     private List<String> departments;
 
-    //Checks if chosen designation is valid
-    public void setDesignation(String designation) {
-        if (getValidDesignations().contains(designation)) {
-            this.designation = designation;
-        } else {
-            throw new IllegalArgumentException("Invalid designation: " + designation); //stop method, returns error message
-        }
-    }
 }

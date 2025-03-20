@@ -47,7 +47,7 @@
 
             <div class="detail-row">
                 <span class="detail-label">Salary:</span>
-                <span th:text="${'$' + #numbers.formatDecimal(employee.salary, 0, 'COMMA', 2, 'POINT')}"></span>
+                <span th:text="${'$' + #numbers.formatDecimal(employee.salary.amount, 0, 'COMMA', 2, 'POINT')}"></span>
             </div>
 
             <div class="detail-row">

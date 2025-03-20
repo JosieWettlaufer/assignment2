@@ -1,5 +1,6 @@
 package com.assignment2.assignment2.controller;
 
+import com.assignment2.assignment2.model.Salary;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
@@ -54,17 +55,15 @@ public class employeeController {
             model.addAttribute("departments", departmentService.getAllDepartments());
             model.addAttribute("designations", Employee.getValidDesignations());
 
-            return "confirmation";
+            return "employeeForm";
         }
 
-        //calculate and set salary bsaed on designation
-        double salary = salaryService.calculateSalary(employee.getDesignation());
+        //calculate and set salary based on designation
+        Salary salary = salaryService.calculateSalary(employee.getDesignation());
         employee.setSalary(salary);
 
         //add employee to model for confirmation page
         model.addAttribute("employee", employee);
-
-
 
         return "confirmation";
     }
@@ -74,7 +73,7 @@ public class employeeController {
     @ResponseBody
     public String getSalaryForDesignation(@RequestParam("designation") String designation) {
         //gets salary based on designation from URL
-        double salary = salaryService.calculateSalary(designation);
-        return String.valueOf(salary); //return in response body (plaintext)
+        Salary salary = salaryService.calculateSalary(designation);
+        return String.valueOf(salary.getAmount()); //return in response body (plaintext)
     }
 }
